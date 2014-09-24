@@ -46,10 +46,7 @@
     });
 
 
- /*   var azureToDoItemDS = new kendo.data.DataSource({
-        data: ["ram","shyam"]
-    });
-*/
+ 
     var openView = function (e) {
        // e.preventDefault();        
         console.log(app.TO_DO_URL);
