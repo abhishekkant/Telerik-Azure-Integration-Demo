@@ -6,7 +6,10 @@
         id: "id",
         fields: {
             todoItem: {
-                type: "string"
+                type: "string",
+                validation: {
+                    required: true
+                }
             },
             todoEntered: {
                 type: "string",
@@ -18,7 +21,10 @@
             },
             importance: {
                 type: "string",
-                defaultValue: "Medium"
+                defaultValue: "Medium",
+                validation: {
+                    pattern: "(?:Urgent|Medium|Low)"
+                }
             }
 
         }
@@ -31,16 +37,33 @@
         },
         transport: {
             read: {
-                url: TO_DO_URL,
-                type: "json"
+                url: app.TO_DO_URL,
+                dataType: "json",
+                headers: 
+                    { "X-ZUMO-APPLICATION": app.azureKey }
             }
         }
     });
 
+
+ /*   var azureToDoItemDS = new kendo.data.DataSource({
+        data: ["ram","shyam"]
+    });
+*/
+    var openView = function (e) {
+       // e.preventDefault();        
+        console.log(app.TO_DO_URL);
+    }
+
     // Subscribe to events
-    $.subscribe(app.createToDo, function (e, value) {
+    /*$.subscribe(app.createToDo, function (e, value) {
         azureToDoItemDS.add(value);
         azureToDoItemsDS.sync();
-    });
+    });*/
+
+    app.azureService = {
+        azureToDoItemDS: azureToDoItemDS,
+        openView: openView
+    };
 
 })(window);

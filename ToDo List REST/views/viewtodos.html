@@ -1,0 +1,17 @@
+<!-- List of ToDo Items -->
+<div data-role="view" data-title="ToDo Items" data-init="app.azureService.openView">
+        <ul id="alltodoItemsListView" data-role="listview"
+            data-source="app.azureService.azureToDoItemDS" 
+            data-template="todos-template"
+         >
+
+        </ul>
+    </div>
+
+<script type="text/x-kendo-template" id="todos-template">
+
+  #: todoItem #
+    <div>
+    #= todoEntered#
+    </div>
+</script>

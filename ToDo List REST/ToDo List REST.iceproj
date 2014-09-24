@@ -40,6 +40,7 @@
     <Content Include="scripts\createTodo.js" />
     <Content Include="scripts\getToDo.js" />
     <Content Include="scripts\pubsub.js" />
+    <Content Include="views\viewtodos.html" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="App_Resources\Android\drawable-hdpi\icon.png" />
