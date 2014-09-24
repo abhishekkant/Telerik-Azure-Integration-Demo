@@ -36,6 +36,7 @@
     <Content Include="kendo\styles\kendo.mobile.all.min.css" />
     <Content Include="kendo\typescript\jquery.d.ts" />
     <Content Include="kendo\typescript\kendo.mobile.d.ts" />
+    <Content Include="scripts\app.js" />
     <Content Include="scripts\createTodo.js" />
     <Content Include="scripts\getToDo.js" />
     <Content Include="scripts\pubsub.js" />

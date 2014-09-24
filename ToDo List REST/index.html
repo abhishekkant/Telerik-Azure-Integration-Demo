@@ -4,21 +4,39 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-
-    
     
 </head>
 <body>
     
     <!-- List of ToDo Items -->
-    
+    <div data-role="view" data-title="First View">
+        <h1>View</h1>
+    </div>
     
     <!--Add a new ToDo Item-->
     
-    
+
+     <!--Layout-->
+        <div data-role="layout" data-id="tabstrip-layout">
+            <!--Header-->
+            <div data-role="header">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            
+            <!--Footer-->
+            <div data-role="footer">
+                <div data-role="tabstrip">
+                    <a href="#tabstrip-weather" data-icon="home">Home</a>
+
+                </div>
+            </div>
+        </div>
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
+    <script src="scripts/app.js"></script>
     <script src="scripts/pubsub.js"></script>
     <script src="scripts/getToDo.js"></script>
     <script src="scripts/createTodo.js"></script>
