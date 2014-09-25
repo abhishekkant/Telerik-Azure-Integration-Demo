@@ -1,0 +1,23 @@
+<!-- List of ToDo Items -->
+<div data-role="view" data-title="Pending ToDos">
+        <ul id="pendingtodoItemsListView" data-role="listview"
+            data-source="app.azurePendingService.azurePendingToDoItemDS" 
+            data-template="pendingtodos-template"
+            data-pull-to-refresh="true">
+
+        </ul>
+    </div>
+
+<script type="text/x-kendo-template" id="pendingtodos-template">
+
+    <div data-role="touch" data-enable-swipe="true" data-itemid="#= id #" data-swipe="app.azurePendingService.openView">
+    # if(importance === "Urgent") { #
+ <b> #: todoItem # </b>
+    #  } else { #
+         #: todoItem # 
+        # } #
+    <div>
+    #= todoEntered#
+    </div>
+    </div>
+</script>

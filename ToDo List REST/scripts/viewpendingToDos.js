@@ -1,5 +1,6 @@
 (function (global) {
     var app = global.app = global.app || {};
+    var selecteditem = null;
   
     // Define the model
     var todoModel = kendo.data.Model.define({
@@ -34,10 +35,15 @@ nullable: false
 
     // Define the DataSource
     var azureToDoItemDS = new kendo.data.DataSource({
-        offlineStorage: "todoItems-offline",
+        type: "odata",
+        offlineStorage: "todoPendingItems-offline",
         schema: {
+            total: "count",
+            data: "results",
             model: todoModel
         },
+        
+         filter: { field: "isComplete", operator: "eq", value: false },
         transport: {
             read: {
                 url: app.TO_DO_URL,
@@ -45,28 +51,31 @@ nullable: false
                 headers: 
                     { "X-ZUMO-APPLICATION": app.azureKey }
             },
-            create: {
-                url: app.TO_DO_URL,
-                dataType: "json",
-                headers: 
+            update: {
+                url: function(e) {return app.TO_DO_URL + '/' + selecteditem},
+                type:"PATCH",
+                 headers: 
                     { "X-ZUMO-APPLICATION": app.azureKey,
-                    "Content-Type":"application/json"},
-                type: "POST"
+"Content-Type":"application/json" }
+                
             },
-            parameterMap: function(data, type) {
-      if (type == "create") {
-        return JSON.stringify(data);
-      }
+ 
     }
              
-        }
     });
 
 
  
     var openView = function (e) {
        
-  console.log("User swiped the element:" + $(e.touch.currentTarget).text());
+  console.log("User swiped the element:" + $(e.touch.currentTarget).data("itemid"));
+        
+       selecteditem =  $(e.touch.currentTarget).data("itemid");
+       var dataItem = azureToDoItemDS.get(selecteditem);
+        console.log(dataItem);
+        dataItem.isComplete = true;
+        dataItem.dirty = true;
+        azureToDoItemDS.sync();
         
     }
     
@@ -91,14 +100,8 @@ nullable: false
     }
 
 
-    // Subscribe to events
-    /*$.subscribe(app.createToDo, function (e, value) {
-        azureToDoItemDS.add(value);
-        azureToDoItemsDS.sync();
-    });*/
-
-    app.azureService = {
-        azureToDoItemDS: azureToDoItemDS,
+    app.azurePendingService = {
+        azurePendingToDoItemDS: azureToDoItemDS,
         openView: openView,
         saveViewforOffline: saveViewforOffline
     };
