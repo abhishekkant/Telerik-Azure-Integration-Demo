@@ -72,8 +72,18 @@ nullable: false
     
     
     var saveViewforOffline = function (e) {
+        if (e.sender.element[0].innerText === 'Offline') {
+            // The app is switching to offline mode
        app.azureService.azureToDoItemDS.online(false);
-        alert("data saved");
+            e.sender.element[0].innerText = 'Online';
+            }
+        else {
+            // The app is switching to online mode
+             app.azureService.azureToDoItemDS.online(true);
+            $("#onlineStatusButton").data("kendoButton");
+            e.sender.element[0].innerText = 'Offline';
+        }
+       
     }
 
 
