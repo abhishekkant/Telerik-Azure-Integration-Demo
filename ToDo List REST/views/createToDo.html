@@ -1,5 +1,14 @@
   <!--Add a new ToDo Item-->
-<div id="createToDoView" data-role="view">
+<div id="createToDoView" data-role="view" 
+    data-init="app.azureService.initCreate">
+     
 
-    <h1>Hello</h1>
+    Item: <input type="text" id="todoitem" /><br/>
+    Importance: <br/><label><input type="radio" name="importance" value="Urgent"  />Urgent</label><br/>
+            <label><input type="radio" name="importance" value="Medium" />Medium</label><br/>
+            <label><input type="radio" name="importance" value="Low"  />Low</label><br/>
+    
+    <a data-role="button" data-click="app.azureOperations.saveToAzure">Save</a>
+   
+
 </div>

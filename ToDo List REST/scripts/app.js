@@ -4,7 +4,7 @@
     
     document.addEventListener("deviceready", function () {
         //navigator.splashscreen.hide();
-        app.application = new kendo.mobile.Application(document.body, { layout: "tabstrip-layout", initial: "views/viewtodos.html" }); //,initial: "views/viewtodos.html"
+        app.application = new kendo.mobile.Application(document.body, { layout: "tabstrip-layout", initial: "views/viewtodos.html" });
     }, false);
 
     app.createToDo = "/todo/add";

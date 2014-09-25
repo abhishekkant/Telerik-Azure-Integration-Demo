@@ -1,17 +1,22 @@
 <!-- List of ToDo Items -->
-<div data-role="view" data-title="ToDo Items" data-init="app.azureService.openView">
+<div data-role="view" data-title="ToDo Items">
         <ul id="alltodoItemsListView" data-role="listview"
             data-source="app.azureService.azureToDoItemDS" 
             data-template="todos-template"
-         >
+            data-pull-to-refresh="true">
 
         </ul>
     </div>
 
 <script type="text/x-kendo-template" id="todos-template">
-
-  #: todoItem #
+<div data-role="touch" data-enable-swipe="true" data-swipe="app.azureService.openView">
+    # if(importance === "Urgent") { #
+ <b> #: todoItem # </b>
+    #  } else { #
+         #: todoItem # 
+        # } #
     <div>
     #= todoEntered#
+    </div>
     </div>
 </script>

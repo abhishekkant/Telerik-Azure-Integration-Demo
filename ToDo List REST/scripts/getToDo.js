@@ -2,7 +2,7 @@
     var app = global.app = global.app || {};
   
     // Define the model
-    var todoModel = {
+    var todoModel = kendo.data.Model.define({
         id: "id",
         fields: {
             todoItem: {
@@ -17,21 +17,24 @@
             },
             isComplete: {
                 type: "boolean",
-                defaultValue: false
+                defaultValue: false,
+nullable: false
             },
             importance: {
                 type: "string",
                 defaultValue: "Medium",
+                nullable: false,
                 validation: {
                     pattern: "(?:Urgent|Medium|Low)"
                 }
             }
 
         }
-    };
+    });
 
     // Define the DataSource
     var azureToDoItemDS = new kendo.data.DataSource({
+        offlineStorage: "todoItems-offline",
         schema: {
             model: todoModel
         },
@@ -41,16 +44,38 @@
                 dataType: "json",
                 headers: 
                     { "X-ZUMO-APPLICATION": app.azureKey }
-            }
+            },
+            create: {
+                url: app.TO_DO_URL,
+                dataType: "json",
+                headers: 
+                    { "X-ZUMO-APPLICATION": app.azureKey,
+                    "Content-Type":"application/json"},
+                type: "POST"
+            },
+            parameterMap: function(data, type) {
+      if (type == "create") {
+        return JSON.stringify(data);
+      }
+    }
+             
         }
     });
 
 
  
     var openView = function (e) {
-       // e.preventDefault();        
-        console.log(app.TO_DO_URL);
+       
+  console.log("User swiped the element:" + $(e.touch.currentTarget).text());
+        
     }
+    
+    
+    var saveViewforOffline = function (e) {
+       app.azureService.azureToDoItemDS.online(false);
+        alert("data saved");
+    }
+
 
     // Subscribe to events
     /*$.subscribe(app.createToDo, function (e, value) {
@@ -60,7 +85,8 @@
 
     app.azureService = {
         azureToDoItemDS: azureToDoItemDS,
-        openView: openView
+        openView: openView,
+        saveViewforOffline: saveViewforOffline
     };
 
 })(window);
